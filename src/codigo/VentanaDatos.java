@@ -9,11 +9,10 @@ import java.util.ArrayList;
 
 /**
  *
- * @author alexj
+ * @author alexj.
  */
 public class VentanaDatos extends javax.swing.JFrame {
-
-    static int cambios = 0;
+    //declaramos la posicion del arrayList segun vamo smetiendo datos y el arrayList tipo Int
     static int posArrayList = 0;
     static ArrayList<Integer> numeros = new ArrayList<Integer>();
     //static int[] aux = new int[numeros.size()];
@@ -111,54 +110,66 @@ public class VentanaDatos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+    /*
+    Boton que usamos para ordenar, utilizamo sel metodo Burbuja, 
+    inicializamos el array auxiliar que vamo sa utilizar para ordenarlo.
+    */
     private void ordenarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ordenarMousePressed
-         int[] aux = new int[numeros.size()];
-//        jTextArea1.setText("");
-//        for(int i = 0; i<numeros.size(); i++){
-//            jTextArea1.append((String)numeros.get(i));
-//            System.out.print(numeros.get(i) + "\t");
-//        }
-        burbuja(aux);
-        for(int i = 0; i < aux.length; i++){
-            System.out.print(aux[i] +"\t");
-        }
+        burbuja(numeros);
     }//GEN-LAST:event_ordenarMousePressed
-
+    /*
+    Boton que usamos para añadir el numero al jTextArea1 desde el 2
+    y agregar ese numero en una posicion nueva del ArrayList.
+    */
     private void anadirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_anadirMousePressed
         jTextArea1.setText(jTextArea1.getText() + " " + jTextArea2.getText());
-        System.out.println(posArrayList);
+        //System.out.println(posArrayList);
         numeros.add(Integer.parseInt(jTextArea2.getText()));
         jTextArea2.setText("");
         posArrayList++;
     }//GEN-LAST:event_anadirMousePressed
-
+    /*
+    boton para borrar los datos que haya en los jTextArea, ponemos el posArrayList a 0
+    y limpiamos el arrayList
+    */
     private void borrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrarMousePressed
+        numeros.clear();
         jTextArea1.setText("");
         jTextArea2.setText("");
-        numeros.removeAll(numeros);
+        posArrayList=0;
     }//GEN-LAST:event_borrarMousePressed
 
 
     /*BURBUJA*/
-    static void burbuja(int[] aux) {
+    /*
+    Inicializamos el array numeros2, y metemos en el los datos que hay en arrayList
+    para que el algoritmo Burbuja trabaje con el array numeros2.
+    */
+    private void burbuja(ArrayList<Integer> numeros) {
+        int[] numeros2 = new int[numeros.size()];
         for (int i = 0; i < numeros.size(); i++) {
-            aux[i] = numeros.get(i);
+            numeros2[i] = numeros.get(i);
         }
-        while (cambios < aux.length) {
-            for (int i = 0; i < aux.length-1; i++) {
-                if (aux[i] > aux[i + 1]) {
-                    //creo las variables para guardar el valor de las posiciones y sustituirlas entre si
-                    int auxiliarNum = numeros.get(i);
-                    int numeroMenor = numeros.get(i+1);
-                    numeros.get(i) = numeroMenor;
-                    numeros.get(i+1) = numeroMayor;
-                    cambios++;
+        boolean cambios = true;
+        int numeroMayor;
+        while (cambios) {
+            cambios = false;
+            for (int i = 0; i < numeros2.length - 1; i++) {
+                if (numeros2[i] > numeros2[i + 1]) {
+                    numeroMayor = numeros2[i];
+                    numeros2[i] = numeros2[i + 1];
+                    numeros2[i + 1] = numeroMayor;
+                    cambios = true;
                 }
             }
         }
+        //Vaciamo el jTextArea y concatenamos el contenido del arrayList ya ordenado.
+
+        jTextArea1.setText("");
+        for (int i = 0; i < numeros2.length; i++) {
+            jTextArea1.append(numeros2[i] + " ");
+        }
     }
-   
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
