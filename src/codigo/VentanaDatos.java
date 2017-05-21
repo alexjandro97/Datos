@@ -15,7 +15,8 @@ public class VentanaDatos extends javax.swing.JFrame {
 
     static int cambios = 0;
     static int posArrayList = 0;
-    ArrayList <String> numeros = new ArrayList<String>();
+    static ArrayList<Integer> numeros = new ArrayList<Integer>();
+    //static int[] aux = new int[numeros.size()];
     
     /**
      * Creates new form VentanaDatos
@@ -112,17 +113,23 @@ public class VentanaDatos extends javax.swing.JFrame {
 
 
     private void ordenarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ordenarMousePressed
-        jTextArea1.setText("");
-        for(int i = 0; i<numeros.size(); i++){
-            jTextArea1.append("salió: " + numeros.get(i));
+         int[] aux = new int[numeros.size()];
+//        jTextArea1.setText("");
+//        for(int i = 0; i<numeros.size(); i++){
+//            jTextArea1.append((String)numeros.get(i));
+//            System.out.print(numeros.get(i) + "\t");
+//        }
+        burbuja(aux);
+        for(int i = 0; i < aux.length; i++){
+            System.out.print(aux[i] +"\t");
         }
     }//GEN-LAST:event_ordenarMousePressed
 
     private void anadirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_anadirMousePressed
         jTextArea1.setText(jTextArea1.getText() + " " + jTextArea2.getText());
+        System.out.println(posArrayList);
+        numeros.add(Integer.parseInt(jTextArea2.getText()));
         jTextArea2.setText("");
-        System.out.println(posArrayList + jTextArea2.getText());
-        numeros.add(jTextArea2.getText());
         posArrayList++;
     }//GEN-LAST:event_anadirMousePressed
 
@@ -134,20 +141,23 @@ public class VentanaDatos extends javax.swing.JFrame {
 
 
     /*BURBUJA*/
-//    static void burbuja(ArrayList <String> numeros[]) {
-//        while (cambios < numeros.siz) {
-//            for (int i = 0; i < numeros.length-1; i++) {
-//                if ((int)numeros.get(i) > numeros[i + 1]) {
-//                    //creo las variables para guardar el valor de las posiciones y sustituirlas entre si
-//                    int numeroMayor = numeros.;
-//                    int numeroMenor = numeros. [i+1];
-//                    numeros[i] = numeroMenor;
-//                    numeros[i+1] = numeroMayor;
-//                    cambios++;
-//                }
-//            }
-//        }
-//    }
+    static void burbuja(int[] aux) {
+        for (int i = 0; i < numeros.size(); i++) {
+            aux[i] = numeros.get(i);
+        }
+        while (cambios < aux.length) {
+            for (int i = 0; i < aux.length-1; i++) {
+                if (aux[i] > aux[i + 1]) {
+                    //creo las variables para guardar el valor de las posiciones y sustituirlas entre si
+                    int auxiliarNum = numeros.get(i);
+                    int numeroMenor = numeros.get(i+1);
+                    numeros.get(i) = numeroMenor;
+                    numeros.get(i+1) = numeroMayor;
+                    cambios++;
+                }
+            }
+        }
+    }
    
 
     public static void main(String args[]) {
